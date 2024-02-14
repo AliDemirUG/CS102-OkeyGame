@@ -158,4 +158,8 @@ public class SimplifiedOkeyGame {
         }
     }
 
+    public Player[] getPlayers() {
+        return players;
+    }
+
 }
