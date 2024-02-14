@@ -1,4 +1,5 @@
-public class Player {
+public class Player 
+{
     String playerName;
     Tile[] playerTiles;
     int numberOfTiles;
@@ -24,12 +25,16 @@ public class Player {
     }
     
     // simple bubble sort for tile value sorting
-    public void tileSort() {
+    public void tileSort() 
+    {
         int n = numberOfTiles;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                // Check if either playerTiles[j] or playerTiles[j+1] is null before accessing getValue()
-                if (playerTiles[j] != null && playerTiles[j + 1] != null && playerTiles[j].getValue() > playerTiles[j + 1].getValue()) {
+        for (int i = 0; i < n - 1; i++) 
+        {
+            for (int j = 0; j < n - i - 1; j++) 
+            {
+                // null case handling for not getting nullpointer exception
+                if (playerTiles[j] != null && playerTiles[j + 1] != null && playerTiles[j].getValue() > playerTiles[j + 1].getValue()) 
+                {
                     // Swap playerTiles[j] and playerTiles[j+1]
                     Tile temp = playerTiles[j];
                     playerTiles[j] = playerTiles[j + 1];
@@ -43,19 +48,25 @@ public class Player {
     {
         tileSort();
         int count = 1;
-        for (int i = 1; i < playerTiles.length; i++) 
+        int longestChain = 1;
+        for (int i = 1; i < numberOfTiles; i++) 
         {
-            if (playerTiles[i].getValue() == ((playerTiles[i - 1].getValue()) + 1)) 
+            // Check if either playerTiles[i] or playerTiles[i-1] is null before accessing getValue()
+            if (playerTiles[i] != null && playerTiles[i - 1] != null && playerTiles[i].getValue() == (playerTiles[i - 1].getValue() + 1)) 
             {
                 count++;
+                if (count > longestChain) 
+                {
+                    longestChain = count;
+                }
             } 
             else 
             {
                 // count reset
-                count = 1; 
+                count = 1;
             }
         }
-        return count;
+        return longestChain;
     }
     
     public Tile getAndRemoveTile(int index) 
