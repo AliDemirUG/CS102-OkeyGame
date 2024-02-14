@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class SimplifiedOkeyGame {
 
     Player[] players;
@@ -27,7 +29,7 @@ public class SimplifiedOkeyGame {
     }
 
     /*
-     * TODO: distributes the starting tiles to the players
+     * TO/DO: distributes the starting tiles to the players
      * player at index 0 gets 15 tiles and starts first
      * other players get 14 tiles, this method assumes the tiles are already shuffled
      */
@@ -47,22 +49,34 @@ public class SimplifiedOkeyGame {
     }
 
     /*
-     * TODO: get the last discarded tile for the current player
+     * TO/DO: get the last discarded tile for the current player
      * (this simulates picking up the tile discarded by the previous player)
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getLastDiscardedTile() {
-        return null;
+        players[getCurrentPlayerIndex()].addTile(lastDiscardedTile);
+        return lastDiscardedTile.toString();
     }
 
     /*
-     * TODO: get the top tile from tiles array for the current player
+     * TO/DO: get the top tile from tiles array for the current player
      * that tile is no longer in the tiles array (this simulates picking up the top tile)
      * and it will be given to the current player
      * returns the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
-        return null;
+        //loop until selected tile isn't null
+        int index = 103;
+        while (tiles[index] == null) {
+            index--;
+        }
+
+        //get tile string, add tile, erase tile from index
+        String returnVal = tiles[index].toString();
+        players[getCurrentPlayerIndex()].addTile(tiles[index]);
+        tiles[index] = null;
+
+        return returnVal;
     }
 
     /**
@@ -79,20 +93,32 @@ public class SimplifiedOkeyGame {
     }
 
     /*
-     * TODO: check if game still continues, should return true if current player
+     * TO/DO: check if game still continues, should return true if current player
      * finished the game. use checkWinning method of the player class to determine
      */
     public boolean didGameFinish() {
-        return false;
+        return players[getCurrentPlayerIndex()].checkWinning();
     }
 
-    /* TODO: finds the player who has the highest number for the longest chain
+    /* TO/DO: finds the player who has the highest number for the longest chain
      * if multiple players have the same length may return multiple players
      */
     public Player[] getPlayerWithHighestLongestChain() {
-        Player[] winners = new Player[1];
+        int currentMax = 0;
+        ArrayList<Player> winners = new ArrayList<Player>();
 
-        return winners;
+        //Find max value by looping through all players
+        for (Player player : players) {
+            if (player.findLongestChain() > currentMax){
+                currentMax = player.findLongestChain();
+                winners.clear();
+                winners.add(player);
+            } else if (player.findLongestChain() == currentMax){
+                winners.add(player);
+            }
+        }
+
+        return (Player[]) winners.toArray();
     }
     
     /*
