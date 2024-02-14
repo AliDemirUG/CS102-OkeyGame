@@ -76,9 +76,15 @@ public class ApplicationMain {
                     // if game continues we need to discard a tile using the given index by the player
                     System.out.println("Which tile you will discard?");
                     System.out.print("Discard the tile in index: ");
-                    playerChoice = sc.nextInt();
-
-                    // TODO: make sure the given index is correct, should be 0 <= index <= 14
+                    
+                    // check for valid input
+                    playerChoice = 0;
+                    do {
+                        if (playerChoice < 0 || playerChoice > 14) {
+                            System.out.print("Index must be between 0 and 14: ");
+                        }
+                        playerChoice = sc.nextInt();
+                    } while (playerChoice < 0 || playerChoice > 14);
 
                     game.discardTile(playerChoice);
                     game.passTurnToNextPlayer();
@@ -89,9 +95,24 @@ public class ApplicationMain {
                         System.out.println("Congratulations, you win!");    
                     }
                     else{
-                        // TODO: the game ended with no more tiles in the stack
-                        // determine the winner based on longest chain lengths of the players
-                        // use getPlayerWithHighestLongestChain method of game for this task
+                        Player[] winners = game.getPlayerWithHighestLongestChain();
+                        if (winners.length == 0) { // If the winner is a single player
+                            if (winners[0] == game.getPlayers()[0]) {
+                                System.out.println("Congratulations, you win!");
+                                
+                            } else {
+                                System.out.println(winners[0].getName() + " wins.");
+                            }
+
+                        } else { // If there is more than one winner
+                            String winMessage = "";
+                            for (int i = 0; i < winners.length - 1; i++) {
+                                winMessage += winners[i] + ", ";
+                            }
+                            winMessage += winners[winners.length - 1] + " are tied.";
+
+                            System.out.println(winMessage);
+                        }
                     }
                 }
             }
@@ -117,9 +138,24 @@ public class ApplicationMain {
                         System.out.println(game.getCurrentPlayerName() + " wins.");
                     }
                     else{
-                        // TODO: the game ended with no more tiles in the stack
-                        // determine the winner based on longest chain lengths of the players
-                        // use getPlayerWithHighestLongestChain method of game for this task
+                        Player[] winners = game.getPlayerWithHighestLongestChain();
+                        if (winners.length == 0) { // If the winner is a single player
+                            if (winners[0] == game.getPlayers()[0]) {
+                                System.out.println("Congratulations, you win!");
+
+                            } else {
+                                System.out.println(winners[0].getName() + " wins.");
+                            }
+
+                        } else { // If there is more than one winner
+                            String winMessage = "";
+                            for (int i = 0; i < winners.length - 1; i++) {
+                                winMessage += winners[i] + ", ";
+                            }
+                            winMessage += winners[winners.length - 1] + " are tied.";
+
+                            System.out.println(winMessage);
+                        }
                     }
                 }
             }
