@@ -8,44 +8,69 @@ public class Player {
         playerTiles = new Tile[15]; // there are at most 15 tiles a player owns at any time
         numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
     }
-
-    /*
-     * TODO: checks this player's hand to determine if this player is winning
-     * the player with a complete chain of 14 consecutive numbers wins the game
-     * note that the player whose turn is now draws one extra tile to have 15 tiles in hand,
-     * and the extra tile does not disturb the longest chain and therefore the winning condition
-     * check the assigment text for more details on winning condition
-     */
-    public boolean checkWinning() {
-        return false;
+    
+    
+    public boolean checkWinning() 
+    {
+        if(findLongestChain() == 14)
+        {
+            //if player have 14 continious tiles, it will lead win
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-
-    /*
-     * TODO: used for finding the longest chain in this player hand
-     * this method should iterate over playerTiles to find the longest chain
-     * of consecutive numbers, used for checking the winning condition
-     * and also for determining the winner if tile stack has no tiles
-     */
-    public int findLongestChain() {
-        int longestChain = 0;
-
-        return longestChain;
+    
+    // simple bubble sort for tile value sorting
+    public void TileSort() 
+    {
+        int n = playerTiles.length;
+        for (int i = 0; i < n - 1; i++) 
+        {
+            for (int j = 0; j < n - i - 1; j++) 
+            {
+                if (playerTiles[j].getValue() > playerTiles[j + 1].getValue()) 
+                {
+                    // Swap playerTiles[j] and playerTiles[j+1]
+                    Tile temp = playerTiles[j];
+                    playerTiles[j] = playerTiles[j + 1];
+                    playerTiles[j + 1] = temp;
+                }
+            }
+        }
     }
-
-    /*
-     * TODO: removes and returns the tile in given index position
-     */
+    
+    public int findLongestChain() 
+    {
+        TileSort();
+        int count = 1;
+        for (int i = 1; i < playerTiles.length; i++) 
+        {
+            if (playerTiles[i].getValue() == ((playerTiles[i - 1].getValue()) + 1)) 
+            {
+                count++;
+            } 
+            else 
+            {
+                // count reset
+                count = 1; 
+            }
+        }
+        return count;
+    }
+    
     public Tile getAndRemoveTile(int index) {
+        playerTiles[index] = null;
+        TileSort();
         return null;
     }
 
-    /*
-     * TODO: adds the given tile to this player's hand keeping the ascending order
-     * this requires you to loop over the existing tiles to find the correct position,
-     * then shift the remaining tiles to the right by one
-     */
-    public void addTile(Tile t) {
-
+    public void addTile(Tile t) 
+    {
+        playerTiles[15] = t;
+        TileSort();
     }
 
     /*
