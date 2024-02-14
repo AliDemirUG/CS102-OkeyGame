@@ -24,15 +24,12 @@ public class Player {
     }
     
     // simple bubble sort for tile value sorting
-    public void TileSort() 
-    {
-        int n = playerTiles.length;
-        for (int i = 0; i < n - 1; i++) 
-        {
-            for (int j = 0; j < n - i - 1; j++) 
-            {
-                if (playerTiles[j].getValue() > playerTiles[j + 1].getValue()) 
-                {
+    public void tileSort() {
+        int n = numberOfTiles;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                // Check if either playerTiles[j] or playerTiles[j+1] is null before accessing getValue()
+                if (playerTiles[j] != null && playerTiles[j + 1] != null && playerTiles[j].getValue() > playerTiles[j + 1].getValue()) {
                     // Swap playerTiles[j] and playerTiles[j+1]
                     Tile temp = playerTiles[j];
                     playerTiles[j] = playerTiles[j + 1];
@@ -44,7 +41,7 @@ public class Player {
     
     public int findLongestChain() 
     {
-        TileSort();
+        tileSort();
         int count = 1;
         for (int i = 1; i < playerTiles.length; i++) 
         {
@@ -61,38 +58,54 @@ public class Player {
         return count;
     }
     
-    public Tile getAndRemoveTile(int index) {
-        playerTiles[index] = null;
-        TileSort();
-        return null;
+    public Tile getAndRemoveTile(int index) 
+    {
+        Tile removedTile = playerTiles[index];
+        // Shift tiles to fill the gap left by the removed tile
+        for (int i = index; i < numberOfTiles - 1; i++) 
+        {
+            playerTiles[i] = playerTiles[i + 1];
+        }
+        playerTiles[numberOfTiles - 1] = null;
+        numberOfTiles--;
+        tileSort();
+        return removedTile;
     }
 
-    public void addTile(Tile t) 
-    {
-        playerTiles[15] = t;
-        TileSort();
+    public void addTile(Tile t) {
+        if (numberOfTiles < 15 && t != null) {
+            playerTiles[numberOfTiles] = t;
+            numberOfTiles++;
+            tileSort();
+        } else {
+            System.out.println("Cannot add more tiles, player's hand is full or the provided tile is null.");
+        }
     }
 
     /*
      * finds the index for a given tile in this player's hand
      */
     public int findPositionOfTile(Tile t) {
-        int tilePosition = -1;
         for (int i = 0; i < numberOfTiles; i++) {
             if(playerTiles[i].matchingTiles(t)) {
-                tilePosition = i;
+                return i;
             }
         }
-        return tilePosition;
+        return -1; // Return -1 if tile not found
     }
 
     /*
      * displays the tiles of this player
      */
-    public void displayTiles() {
+    public void displayTiles() 
+    {
         System.out.println(playerName + "'s Tiles:");
-        for (int i = 0; i < numberOfTiles; i++) {
-            System.out.print(playerTiles[i].toString() + " ");
+        for (int i = 0; i < numberOfTiles; i++) 
+        {
+            if (playerTiles[i] != null) 
+            {
+                System.out.print(playerTiles[i].toString() + " ");
+            }
         }
         System.out.println();
     }
