@@ -71,7 +71,7 @@ public class SimplifiedOkeyGame {
     public String getTopTile() {
         //loop until selected tile isn't null
         int index = 0;
-        while (tiles[index] == null) {
+        while (index < tiles.length && tiles[index] == null) {
             index++;
         }
 
@@ -101,7 +101,7 @@ public class SimplifiedOkeyGame {
      * finished the game. use checkWinning method of the player class to determine
      */
     public boolean didGameFinish() {
-        return players[getCurrentPlayerIndex()].checkWinning();
+        return (players[getCurrentPlayerIndex()].checkWinning() || tiles == null);
     }
 
     /* TO/DO: finds the player who has the highest number for the longest chain
@@ -147,7 +147,7 @@ public class SimplifiedOkeyGame {
         //Add discarded tile without breaking sort
         boolean check = false;
         for (int i = 0, j = 0; i < 15; i++) {
-            if (lastDiscardedTile.getValue() < compTileset[j].getValue() && !check){
+            if (j < 14 && lastDiscardedTile.getValue() < compTileset[j].getValue() && !check){
                 compTilesetNew[i] = lastDiscardedTile;
                 check = true;
             } else if (j < 14){
