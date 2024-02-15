@@ -69,6 +69,35 @@ public class Player
         return longestChain;
     }
     
+    /** Ü essentially the same as findLongestChain method but
+     * @return index of the longest chain
+     */
+    public int indexOfChain(){
+        tileSort();
+        int count = 1;
+        int index = 0;
+        for (int i = 1; i < numberOfTiles; i++) 
+        {
+            // Check if either playerTiles[i] or playerTiles[i-1] is null before accessing getValue()
+            if (playerTiles[i] != null && playerTiles[i - 1] != null && playerTiles[i].getValue() == (playerTiles[i - 1].getValue() + 1)) 
+            {
+                index = (i - 1);
+                count++;
+                if (count == findLongestChain()) 
+                {
+                    break;
+                }
+            } 
+            else 
+            {
+                // count reset
+                count = 1;
+            }
+        }
+
+        return index;
+    }
+
     public Tile getAndRemoveTile(int index) 
     {
         Tile removedTile = playerTiles[index];
