@@ -74,6 +74,11 @@ public class SimplifiedOkeyGame {
         while (index < tiles.length && tiles[index] == null) {
             index++;
         }
+        
+        if (index >= tiles.length) {
+            // returning null for error exception
+            return null;
+        }
 
         //get tile string, add tile, erase tile from index
         String returnVal = tiles[index].toString();
@@ -147,7 +152,7 @@ public class SimplifiedOkeyGame {
         //Add discarded tile without breaking sort
         boolean check = false;
         for (int i = 0, j = 0; i < 15; i++) {
-            if (j < 14 && lastDiscardedTile.getValue() < compTileset[j].getValue() && !check){
+            if (j < 14 && (compTileset[j] == null || lastDiscardedTile.getValue() < compTileset[j].getValue()) && !check) {
                 compTilesetNew[i] = lastDiscardedTile;
                 check = true;
             } else if (j < 14){
