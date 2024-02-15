@@ -36,15 +36,19 @@ public class SimplifiedOkeyGame {
     public void distributeTilesToPlayers() {
         for(int i = 0; i < 15; i++){
             players[0].addTile(tiles[i]);
+            tiles[i] = null;
         }
         for(int i = 15; i < 29; i++){
             players[1].addTile(tiles[i]);
+            tiles[i] = null;
         }
         for(int i = 29; i < 43; i++){
-            players[0].addTile(tiles[i]);
+            players[2].addTile(tiles[i]);
+            tiles[i] = null;
         }
-        for(int i = 0; i < 15; i++){
-            players[0].addTile(tiles[i]);
+        for(int i = 43; i < 57; i++){
+            players[3].addTile(tiles[i]);
+            tiles[i] = null;
         }
     }
 
@@ -66,9 +70,9 @@ public class SimplifiedOkeyGame {
      */
     public String getTopTile() {
         //loop until selected tile isn't null
-        int index = 103;
+        int index = 0;
         while (tiles[index] == null) {
-            index--;
+            index++;
         }
 
         //get tile string, add tile, erase tile from index
@@ -85,7 +89,7 @@ public class SimplifiedOkeyGame {
     public void shuffleTiles() {
         int k, value;
         for(int i = 0; i < tiles.length; i++){
-            k = (int) (Math.random() * (tileCount + 1));
+            k = (int) (Math.random() * (tileCount));
             value = tiles[i].getValue();
             tiles[i].setValue(tiles[k].getValue());
             tiles[k].setValue(value);
