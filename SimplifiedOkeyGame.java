@@ -50,6 +50,8 @@ public class SimplifiedOkeyGame {
             players[3].addTile(tiles[i]);
             tiles[i] = null;
         }
+
+        tileCount -= 57;
     }
 
     /*
@@ -69,21 +71,13 @@ public class SimplifiedOkeyGame {
      * returns the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
-        //loop until selected tile isn't null
-        int index = 0;
-        while (index < tiles.length && tiles[index] == null) {
-            index++;
-        }
-        
-        if (index >= tiles.length) {
-            // returning null for error exception
-            return null;
-        }
+        int index = 104 - tileCount;
 
         //get tile string, add tile, erase tile from index
         String returnVal = tiles[index].toString();
         players[getCurrentPlayerIndex()].addTile(tiles[index]);
         tiles[index] = null;
+        tileCount--;
 
         return returnVal;
     }
@@ -106,7 +100,7 @@ public class SimplifiedOkeyGame {
      * finished the game. use checkWinning method of the player class to determine
      */
     public boolean didGameFinish() {
-        return (players[getCurrentPlayerIndex()].checkWinning() || tiles == null);
+        return (players[getCurrentPlayerIndex()].checkWinning());
     }
 
     /* TO/DO: finds the player who has the highest number for the longest chain
@@ -127,7 +121,12 @@ public class SimplifiedOkeyGame {
             }
         }
 
-        return (Player[]) winners.toArray();
+        Player[] returnVal = new Player[winners.size()];
+        for (int i = 0; i < winners.size(); i++) {
+            returnVal[i] = winners.get(i);
+        }
+
+        return returnVal;
     }
     
     /*

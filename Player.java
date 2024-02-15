@@ -13,15 +13,7 @@ public class Player
     
     public boolean checkWinning() 
     {
-        if(findLongestChain() == 14)
-        {
-            //if player have 14 continious tiles, it will lead win
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return findLongestChain() == 14;
     }
     
     // simple bubble sort for tile value sorting
@@ -59,10 +51,7 @@ public class Player
                 {
                     longestChain = count;
                 }
-            } 
-            else 
-            {
-                // count reset
+            } else if (playerTiles[i].getValue() != playerTiles[i - 1].getValue()){ //If they are the same, keep count but don't increase it
                 count = 1;
             }
         }

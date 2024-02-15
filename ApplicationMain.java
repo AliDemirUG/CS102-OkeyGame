@@ -90,13 +90,13 @@ public class ApplicationMain {
                     game.passTurnToNextPlayer();
                 }
                 else{
-                    if(!game.didGameFinish()) {
+                    if(game.didGameFinish()) {
                         // if we finish the hand we win
                         System.out.println("Congratulations, you win!");    
                     }
                     else{
                         Player[] winners = game.getPlayerWithHighestLongestChain();
-                        if (winners.length == 0) { // If the winner is a single player
+                        if (winners.length == 1) { // If the winner is a single player
                             if (winners[0] == game.getPlayers()[0]) {
                                 System.out.println("Congratulations, you win!");
                                 
@@ -133,13 +133,13 @@ public class ApplicationMain {
                     game.passTurnToNextPlayer();
                 }
                 else{
-                    if(!game.didGameFinish()) {
+                    if(game.didGameFinish()) {
                         // current computer character wins
                         System.out.println(game.getCurrentPlayerName() + " wins.");
                     }
                     else{
                         Player[] winners = game.getPlayerWithHighestLongestChain();
-                        if (winners.length == 0) { // If the winner is a single player
+                        if (winners.length == 1) { // If the winner is a single player
                             if (winners[0] == game.getPlayers()[0]) {
                                 System.out.println("Congratulations, you win!");
 
