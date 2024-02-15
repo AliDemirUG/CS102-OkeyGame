@@ -187,12 +187,19 @@ public class SimplifiedOkeyGame {
 
     }
 
-    /*
-     * TODO: Current computer player will discard the least useful tile.
-     * you may choose based on how useful each tile is
+    /**Ü
+     * Method makes current computer player discard the least useful tile.
      */
     public void discardTileForComputer() {
+        int index = players[currentPlayerIndex].indexOfChain();
+        Tile[] compTileset = players[currentPlayerIndex].getTiles();
 
+        if(index == 0){
+            lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(compTileset.length - 1);
+
+        }else{
+            lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(0);
+        }
     }
 
     /*
