@@ -133,13 +133,57 @@ public class SimplifiedOkeyGame {
     }
 
     /*
-     * TODO: pick a tile for the current computer player using one of the following:
+     * TO/DO: pick a tile for the current computer player using one of the following:
      * - picking from the tiles array using getTopTile()
      * - picking from the lastDiscardedTile using getLastDiscardedTile()
      * you should check if getting the discarded tile is useful for the computer
      * by checking if it increases the longest chain length, if not get the top tile
      */
     public void pickTileForComputer() {
+        int beforeMax = players[currentPlayerIndex].findLongestChain(); //Called now to call tileSort, just in case
+        Tile[] compTileset = players[currentPlayerIndex].getTiles();
+        Tile[] compTilesetNew = new Tile[15];
+
+        //Add discarded tile without breaking sort
+        boolean check = false;
+        for (int i = 0, j = 0; i < 15; i++) {
+            if (lastDiscardedTile.getValue() < compTileset[j].getValue() && !check){
+                compTilesetNew[i] = lastDiscardedTile;
+                check = true;
+            } else if (j < 14){
+                compTilesetNew[i] = compTileset[j];
+                j++;
+            } else {
+                compTilesetNew[i] = lastDiscardedTile;
+                check = true;
+            }
+        }
+
+        // Repurposed from findLongestChain method in the Player class
+        int count = 1;
+        int longestChain = 1;
+        for (int i = 1; i < 15; i++) 
+        {
+            if (compTilesetNew[i] != null && compTilesetNew[i - 1] != null && compTilesetNew[i].getValue() == (compTilesetNew[i - 1].getValue() + 1)) 
+            {
+                count++;
+                if (count > longestChain) 
+                {
+                    longestChain = count;
+                }
+            } 
+            else 
+            {
+                count = 1;
+            }
+        }
+        
+        // If discarded tile improves the longest chain, get discarded tile, otherwise, get top tile
+        if (longestChain > beforeMax){
+            getLastDiscardedTile();
+        } else {
+            getTopTile();
+        }
 
     }
 
@@ -157,7 +201,7 @@ public class SimplifiedOkeyGame {
      * that player's tiles
      */
     public void discardTile(int tileIndex) {
-
+        lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(tileIndex);
     }
 
     public void displayDiscardInformation() {
