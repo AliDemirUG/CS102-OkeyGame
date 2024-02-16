@@ -1,5 +1,8 @@
 import java.util.Scanner;
-
+/* this is main runner class that runs the okey app 
+ * that we filled with Ali, Atilla and Kaan
+ * Bilkent CS23 - Uğur Doğrusöz Section 3 
+ */
 public class ApplicationMain {
 
     public static void main(String[] args) {

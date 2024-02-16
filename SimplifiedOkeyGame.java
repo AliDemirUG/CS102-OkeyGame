@@ -10,10 +10,12 @@ public class SimplifiedOkeyGame {
 
     int currentPlayerIndex = 0;
 
+    // it creates the players 
     public SimplifiedOkeyGame() {
         players = new Player[4];
     }
 
+    // it creates the tiles of the all tiles, and sets the cuurent tile on zero to start on null
     public void createTiles() {
         tiles = new Tile[104];
         int currentTile = 0;
@@ -229,12 +231,14 @@ public class SimplifiedOkeyGame {
         lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(tileIndex);
     }
 
+    // it displays the discarded tile information on main runner 
     public void displayDiscardInformation() {
         if(lastDiscardedTile != null) {
             System.out.println("Last Discarded: " + lastDiscardedTile.toString());
         }
     }
 
+    // getter (accessor) method/s
     public void displayCurrentPlayersTiles() {
         players[currentPlayerIndex].displayTiles();
     }
@@ -251,14 +255,14 @@ public class SimplifiedOkeyGame {
         currentPlayerIndex = (currentPlayerIndex + 1) % 4;
     }
 
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    // setter (mutator) method
     public void setPlayerName(int index, String name) {
         if(index >= 0 && index <= 3) {
             players[index] = new Player(name);
         }
     }
-
-    public Player[] getPlayers() {
-        return players;
-    }
-
 }

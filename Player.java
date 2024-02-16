@@ -10,7 +10,7 @@ public class Player
         numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
     }
     
-    
+    // if longest chain is about 14, it creates winning condition, so check winning returns true
     public boolean checkWinning() 
     {
         return findLongestChain() == 14;
@@ -36,6 +36,7 @@ public class Player
         }
     }
     
+    // it checks tile chain checker, and it returns
     public int findLongestChain() 
     {
         tileSort();
@@ -101,6 +102,7 @@ public class Player
         return removedTile;
     }
 
+    // addTile method which is about adding one tile to player or computer players deck 
     public void addTile(Tile t) {
         if (numberOfTiles < 15 && t != null) {
             playerTiles[numberOfTiles] = t;
@@ -139,12 +141,10 @@ public class Player
         System.out.println();
     }
 
+
+    // getter (accessor methods)
     public Tile[] getTiles() {
         return playerTiles;
-    }
-
-    public void setName(String name) {
-        playerName = name;
     }
 
     public String getName() {
@@ -183,4 +183,10 @@ public class Player
 
         return chainLength;
     }
+
+    // setter (mutator methods)
+    public void setName(String name) {
+        playerName = name;
+    }
 }
+
