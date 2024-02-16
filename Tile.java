@@ -52,13 +52,17 @@ public class Tile {
         return canFormChain;
     }
 
+    // toString method to overrige the string representation, and it gives proper deck representation of the tiles
     public String toString() {
         return "" + value;
     }
 
+    // getter (accessor) method
     public int getValue() {
         return value;
     }
+
+    // setter (mutator) method
     public void setValue(int value){
         this.value = value;
     }
