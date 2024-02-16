@@ -150,4 +150,37 @@ public class Player
     public String getName() {
         return playerName;
     }
+
+    public int getDuplicateIndex(){
+        for (int i = 1; i < playerTiles.length && playerTiles[i] != null; i++) {
+            if (playerTiles[i - 1].getValue() == playerTiles[i].getValue()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getChainLengthAtIndex(int input){
+        int chainLength = 1;
+
+        boolean done = false;
+        for (int index = input; !done && index + 1 < numberOfTiles && playerTiles[index+1] != null; index++) {
+            if (playerTiles[index].getValue() == playerTiles[index+1].getValue() - 1) {
+                chainLength += 1;
+            } else if (playerTiles[index].getValue() != playerTiles[index+1].getValue()){
+                done = true;
+            }
+        }
+
+        done = false;
+        for (int index = input; !done && index - 1 >= 0 && playerTiles[index] != null; index--) {
+            if (playerTiles[index].getValue() == playerTiles[index-1].getValue() + 1) {
+                chainLength += 1;
+            } else if (playerTiles[index].getValue() != playerTiles[index-1].getValue()){
+                done = true;
+            }
+        }
+
+        return chainLength;
+    }
 }
