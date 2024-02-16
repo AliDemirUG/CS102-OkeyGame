@@ -1,2 +1,2 @@
 # CS102-OkeyGame
-This is a simplified okey game which is singleplayer.
+This is a simplified Okey game, which is single-player. It has a game loop containing a tile distribution of 14 tiles for each person, and the starting person will start 15 tiles and throw their first tile. All okey software tracks tiles and checks the winning condition, which is consecutive of 14 chains of tiles. If there are no 14 chains and no tiles, it contains the most extended tail and sets the winner on results. 
