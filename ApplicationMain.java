@@ -109,7 +109,7 @@ public class ApplicationMain {
                             for (int i = 0; i < winners.length - 1; i++) {
                                 winMessage += winners[i] + ", ";
                             }
-                            winMessage += winners[winners.length - 1] + " are tied.";
+                            winMessage += winners[winners.length - 1].getName() + " are tied.";
 
                             System.out.println(winMessage);
                         }
@@ -152,7 +152,7 @@ public class ApplicationMain {
                             for (int i = 0; i < winners.length - 1; i++) {
                                 winMessage += winners[i] + ", ";
                             }
-                            winMessage += winners[winners.length - 1] + " are tied.";
+                            winMessage += winners[winners.length - 1].getName() + " are tied.";
 
                             System.out.println(winMessage);
                         }
