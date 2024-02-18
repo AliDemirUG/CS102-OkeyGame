@@ -110,7 +110,7 @@ public class ApplicationMain {
                         } else { // If there is more than one winner
                             String winMessage = "";
                             for (int i = 0; i < winners.length - 1; i++) {
-                                winMessage += winners[i] + ", ";
+                                winMessage += winners[i].getName() + ", ";
                             }
                             winMessage += winners[winners.length - 1].getName() + " are tied.";
 
@@ -153,7 +153,7 @@ public class ApplicationMain {
                         } else { // If there is more than one winner
                             String winMessage = "";
                             for (int i = 0; i < winners.length - 1; i++) {
-                                winMessage += winners[i] + ", ";
+                                winMessage += winners[i].getName() + ", ";
                             }
                             winMessage += winners[winners.length - 1].getName() + " are tied.";
 
